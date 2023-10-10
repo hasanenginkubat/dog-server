@@ -1,5 +1,6 @@
-const axios = require('axios');
 const { Dog, Temperament } = require("../db");
+const axios = require('axios');
+
 
 const getApiInfo = async function () {
   const apiURL = await axios.get("https://api.thedogapi.com/v1/breeds");
@@ -14,9 +15,9 @@ const getApiInfo = async function () {
       weightMin: parseInt(weightAPI[0]) ? parseInt(weightAPI[0]) : 25,
       weightMax: parseInt(weightAPI[1]) ? parseInt(weightAPI[1]) : 36,
       life_span: el.life_span,
-      image: el.image.url
-        ? el.image.url
-        : "https://i.ytimg.com/vi/0oBx7Jg4m-o/maxresdefault.jpg",
+      image: el.image && el.image.url
+      ? `https://cdn2.thedogapi.com/images/${el.image.url}.jpg`
+      : "https://i.ytimg.com/vi/0oBx7Jg4m-o/maxresdefault.jpg",    
       temperament: el.temperament,
     };
   });
@@ -35,7 +36,6 @@ const getAllInfo = async function () {
   const apiInfoAll = await getApiInfo();
   let dbInfoAll = await getDBInfo();
 
-  // Filtreleme işlemi
   dbInfoAll = dbInfoAll.filter((dbDog) => {
     return !apiInfoAll.some((apiDog) => apiDog.id === dbDog.id);
   });
