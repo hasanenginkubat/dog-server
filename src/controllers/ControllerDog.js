@@ -15,8 +15,8 @@ const getApiInfo = async function () {
       weightMin: parseInt(weightAPI[0]) ? parseInt(weightAPI[0]) : 25,
       weightMax: parseInt(weightAPI[1]) ? parseInt(weightAPI[1]) : 36,
       life_span: el.life_span,
-      image: el.image && el.image.url
-      ? `https://cdn2.thedogapi.com/images/${el.image.url}.jpg`
+      reference_image_id: el.reference_image_id && el.reference_image_id
+      ? `https://cdn2.thedogapi.com/images/${el.reference_image_id}.jpg`
       : "https://i.ytimg.com/vi/0oBx7Jg4m-o/maxresdefault.jpg",    
       temperament: el.temperament,
     };
